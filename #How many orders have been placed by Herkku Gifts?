@@ -1,0 +1,3 @@
+select a.customername,count(b.ordernumber) from customers a 
+inner join orders b on a.customernumber=b.customernumber 
+where a.customername='Herkku Gifts';
