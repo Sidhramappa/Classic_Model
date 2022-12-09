@@ -1,0 +1,27 @@
+#Report the products that have not been sold.
+select * from orderdetails;
+select * from products;
+
+select p.productcode from products p
+inner join orderdetails o 
+on p.productcode = o.productcode
+where p.productcode <> (o.productcode);
+
+
+#Report the name and city of customers who don't have sales representatives?
+select customername,city from customers where salesRepEmployeeNumber is null;
+
+
+# What are the names of executives with VP or Manager in their title? 
+# Use the CONCAT function to combine the employee's first name and last name into a single field for reporting.
+select concat(firstname,lastname) from employees
+where jobtitle like '%vp%' or jobtitle like '%manager%';
+
+
+
+#Report the account representative for each customer.
+select a.customername from customers a 
+inner join employees b
+on a.salesRepEmployeeNumber=b.employeenumber;
+
+
