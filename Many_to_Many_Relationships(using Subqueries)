@@ -1,0 +1,62 @@
+#Get employee details who shipped an order within a time span of two days from order date
+select * from customers;
+select * from employees;
+select * from orders;
+
+select * from employees where employeenumber in 
+(select salesRepEmployeeNumber from customers where customernumber in
+(select customernumber from orders where datediff(shippeddate,orderdate)<=2));
+
+# Report the account representative for each customer ?
+select * from customers;
+select * from employees;
+select cu.customername,concat(e.firstname,' ',e.lastname) as account_rep
+from employees e join customers cu 
+on salesRepemployeeNumber=employeeNumber;
+
+
+#Report the total payments by date
+select * from payments;
+
+select paymentdate,sum(amount) from payments
+group by paymentdate;
+
+
+# Get product name , product line , product vendor of products that got cancelled.
+select * from products;
+select * from orders;
+select * from orderdetails;
+
+select * from products
+where productcode in
+(select productcode from orderdetails where ordernumber in 
+(select ordernumber from orders where orders.status='cancelled'));
+
+
+
+#Q10. Display those customers who ordered product of price greater than average price(buyPrice)
+#of all products(98 Rows)
+select * from customers;
+select * from orders;
+select * from orderdetails;
+select * from payments;
+select * from products;
+
+select customerName from customers
+where customernumber in
+(select customernumber from orders where ordernumber in
+(select ordernumber from orderdetails where productcode in
+(select productcode from products where buyprice >(select avg(buyprice) from products))));
+
+
+
+
+
+
+
+
+
+
+
+
+
